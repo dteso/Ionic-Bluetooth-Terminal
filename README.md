@@ -4,12 +4,12 @@
 
 Recuerda tener Android Studio instalado para generar tus apk.
 
-1. Clónate este proyecto en un directorio local, accede a una consola, navega en ella hasta la ruta donde
-has clonado el proyecto y ejecuta el comando
+> 1. Clónate este proyecto en un directorio local, accede a una consola, navega en ella hasta la ruta donde
+has clonado el proyecto y ejecuta el comando:
 
---> npm install
+npm install
 
-2. A continuación ejecuta:
+> 2. A continuación ejecuta:
 
 ionic cap add android
 
@@ -17,7 +17,7 @@ ionic cap build android
 
 ionic cap sync
 
-3. En este punto recuerda que el equipo desde donde lanzas el servidor y el dispositivo en el que estás volcando el programa deben estar conectados a la misma red y a través de cable USB. Una vez verificado 
+> 3. En este punto recuerda que el equipo desde donde lanzas el servidor y el dispositivo en el que estás volcando el programa deben estar conectados a la misma red y a través de cable USB. Una vez verificado:
 
 ionic cap run android -l --external 
 
@@ -46,7 +46,7 @@ npm install -g @ionic/cli native-run cordova-res
 ionic start bluetoothterminal blank --type=angular --capacitor
 
 
-* IONIC INFO
+> IONIC INFO
 
 En el momento de estasconfiguraciones iniciales el proyecto arranca a fecha 24/06/2021 con las siguientes versiones:
 
@@ -83,7 +83,7 @@ Crear aplicación: ionic start [blank | tabs | sidemenu] --type=[angular | react
 Arrancar server local: ionic serve ---> localhost:8100
 
 
-* Capacitor:
+> Capacitor:
 
    ionic cap sync ----> ionic capacitor sync [<platform>] [options] => Realiza lo siguiente:
     - Genera una build para Ionic que compila los web assets
@@ -110,7 +110,7 @@ Arrancar server local: ionic serve ---> localhost:8100
 
 
 
-* Instalación plugin Capacitor-BLE-Central
+> Instalación plugin Bluetooth Serial 
 
     npm i @ionic-native/core
     npm install cordova-plugin-bluetooth-serial
