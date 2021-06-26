@@ -1,0 +1,7 @@
+{
+  "name": "bluetoothterminal",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
