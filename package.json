@@ -28,9 +28,11 @@
     "@ionic-native/android-permissions": "^5.33.1",
     "@ionic-native/bluetooth-serial": "^5.33.1",
     "@ionic-native/core": "^5.33.1",
+    "@ionic-native/speech-recognition": "^5.33.1",
     "@ionic/angular": "^5.5.2",
     "cordova-plugin-android-permissions": "^1.1.2",
     "cordova-plugin-bluetooth-serial": "^0.4.7",
+    "cordova-plugin-speechrecognition": "^1.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

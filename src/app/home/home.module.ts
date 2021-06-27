@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
@@ -19,7 +20,8 @@ import { HomePageRoutingModule } from './home-routing.module';
   ],
   providers: [
     BluetoothSerial,
-    AndroidPermissions
+    AndroidPermissions,
+    SpeechRecognition
   ],
   declarations: [HomePage]
 })

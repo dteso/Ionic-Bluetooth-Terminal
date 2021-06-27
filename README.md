@@ -128,4 +128,19 @@ o instala la aplicación en tu dispositivo mediante Android Studio.
     npm install @ionic-native/android-permissions 
 
 
+> Speech Recognition ( voz a texto )
+
+    npm install cordova-plugin-speechrecognition
+    npm install @ionic-native/speech-recognition
+    ionic cap sync
+
+* Android
+  Además, hay que tener en cuenta que a partir de Android 11, será necesario configurar la visibilidad del paquete, en este caso para conectarnos a un servicio de 
+  reconocimiento de voz. Se hace necesario, pues, añadir en el manifest:
+
+    <queries>
+      <intent>
+        <action android:name="android.speech.RecognitionService" />
+      </intent>
+    </queries>
 

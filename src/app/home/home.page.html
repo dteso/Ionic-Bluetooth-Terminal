@@ -1,20 +1,37 @@
 <ion-header [translucent]="true" class="bg-seagreen">
   <ion-toolbar>
-    <ion-title>
-      BluetoothTerminal
-    </ion-title>
+    <ion-row>
+      <ion-col>
+        <ion-title>
+          BluetoothTerminal
+        </ion-title>
+      </ion-col>
+      <ion-col size="1" *ngIf="connected" style="margin-right: 0.5rem;">
+        <ion-icon name="settings-outline" color="secondary" style="font-size: 1.75rem;"></ion-icon>
+      </ion-col>
+      <ion-col size="1" *ngIf="connected" style="margin-right: 0.5rem;" (click)="clearConsole();">
+        <ion-icon name="trash" color="warning"  style="font-size: 1.75rem;"></ion-icon>
+      </ion-col>
+      <ion-col size="1" *ngIf="connected" style="margin-right: 0.5rem;">
+        <ion-icon name="document-text" color="success"  style="font-size: 1.75rem;"></ion-icon>
+      </ion-col>
+      <ion-col size="1" *ngIf="connected" style="margin-right: 0.5rem;"  (click)="disconnect()">
+        <ion-icon name="flash-off" color="danger" style="font-size: 1.75rem;"></ion-icon>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
   <!-- When connected -->
   <ion-row *ngIf="connected" class="fade-in">
     <ion-col size='12'
       class="connected-frame">
       <h2 class="white-shadowed-text"><strong>CONNECTED</strong></h2>
-      <!-- <ion-icon name="bluetooth-outline" style="font-size: 1.5rem;"></ion-icon> -->
       <h6><strong> {{ currentDevice.name }} </strong> {{ currentDevice.address }} ( {{ currentDevice.signalStrength }})
       </h6>
-      <ion-button expand="block" color="dark" (click)="disconnect()">Disconnect</ion-button>
+      <ion-icon name="mic-circle-outline" color="light" style="font-size: 6rem;" (click)="startSpeechRecognition()"></ion-icon>
     </ion-col>
   </ion-row>
+
+
   <!-- Last message received-->
   <ion-row *ngIf="rawDataSubject | async" class="fade-in">
     <ion-col size='12' class="center-shadow-box">
@@ -29,12 +46,7 @@
     <ion-col>
       <form [formGroup]="btForm" (ngSubmit)="onSubmit()">
         <ion-row>
-          <ion-col size='2'>
-            <ion-button expand="block" color="light" type="submit" size='medium'>
-              <ion-icon name="settings"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col size='8'>
+          <ion-col size='10'>
             <ion-input type="text" formControlName="message" name="message"
               class="terminal-input"></ion-input>
           </ion-col>
@@ -68,7 +80,7 @@
   </ion-row>
 
   <!-- Log -->
-  <ion-row *ngIf="rawDataSubject | async" class="fade-in">
+  <ion-row *ngIf="rawDataSubject | async else notDataBlock" class="fade-in">
     <ion-col size='12'>
       <div #terminal class="overflow-scroll">
         <ion-textarea>
@@ -102,5 +114,10 @@
       </div>
     </ion-col>
   </ion-row>
+  <ng-template #notDataBlock>
+    <div *ngIf="connected" style="text-align: center; padding-top: 40%;">
+      No data received by the moment...
+    </div>
+  </ng-template>
   <!-- MESSAGE_TRAFFIC_COUNT: {{idx}} -->
 </ion-content>
