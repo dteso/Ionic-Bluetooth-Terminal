@@ -144,3 +144,36 @@ o instala la aplicación en tu dispositivo mediante Android Studio.
         </intent>
       </queries>
 
+> Pdf Generation
+
+  Se usará la librería pdfmake
+
+    npm install pdfmake --save  
+
+    npm install cordova-plugin-file-opener2
+    npm install @ionic-native/file-opener
+
+    npm install @capacitor/filesystem
+
+    npm install cordova-plugin-file
+    npm install @ionic-native/file
+  
+  Se va a utilizar jetifier en esa ocasión para resolver los conflictos de librerías actualizando a compatibilidad AndroidX. Para ver la necesidad de utilizar esta herramienta, puede intentar levantarse el proyecto en un dispositivo 
+  previa ejecucion de un 
+    
+    ionic cap sync
+
+  comprobando que en este punto obtenemos errores. Para ello instalamos
+
+    npm install jetifier npm i -D jetifier 
+
+( se nos avisa que este paquete estará proximamente obsoleto pero nosotros sólo lo vamos a utilizar como dependencia de desarrollo )
+
+Ejecutamos el proceso con 
+
+    npx jetify
+
+En este punto deberíamos estar listo para levantar el proyecto en el dispositivo. 
+
+
+

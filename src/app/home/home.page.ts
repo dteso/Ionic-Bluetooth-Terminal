@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -12,6 +13,14 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { Observable, of } from 'rxjs';
 import { LoaderService } from 'src/services/loader.service';
+
+import { File } from '@ionic-native/file/ngx';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { NavController, Platform } from '@ionic/angular';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { Filesystem, Directory } from '@capacitor/filesystem';
 
 const READ_STATUS = '>>>READ_STATUS';
 
@@ -34,6 +43,8 @@ const MessageTypes = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
+  @ViewChild('terminal') terminal: HTMLElement;
+
   bluetoothDevices = [];
   rawData: DataRow[] = [];
   rawDataSubject = new Observable<any>();
@@ -54,13 +65,20 @@ export class HomePage implements OnInit {
     address: '',
   };
 
+  pdfObject: any;
+
+
   constructor(
     private readonly bt: BluetoothSerial,
     private readonly androidPermissions: AndroidPermissions,
     private readonly cdr: ChangeDetectorRef,
     private readonly formBuilder: FormBuilder,
     public loaderService: LoaderService,
-    private readonly speechRecognition: SpeechRecognition
+    private readonly speechRecognition: SpeechRecognition,
+    private navCtrl: NavController,
+    private file: File,
+    private fileOpener: FileOpener,
+    private platform: Platform
   ) {
     this.idx = 0;
     this.btForm = this.formBuilder.group({
@@ -224,5 +242,44 @@ export class HomePage implements OnInit {
         this.getStoredDevices();
       })
       .catch((err) => console.error('Unable to disconnect'));
+  }
+
+  generateContent():String{
+    let result = '';
+    this.rawData.map( data=> {
+      result = `${result} [ ${data.timestamp.getHours()}:${data.timestamp.getMinutes()}:${data.timestamp.getSeconds()} ] - ${data.content} \r\n`;
+    });
+    return result;
+  }
+
+  generatePDF() {
+    let docDefinition = {
+      content: [
+        this.generateContent()
+      ]
+    };
+    this.pdfObject = pdfMake.createPdf(docDefinition);
+    alert('PDF Generado');
+    this.savePDF();
+  }
+
+  savePDF() {
+    if(this.platform.is('cordova')) {
+      this.pdfObject.getBase64((buffer) => {
+       // Save the PDF to the data Directory of our App
+        Filesystem.writeFile(
+          {
+            directory: Directory.Documents,
+            path: 'data.pdf',
+            data: buffer
+        }
+        ).then(fileEntry => {
+          console.info(fileEntry);
+          this.pdfObject.download();
+          alert('Guardado');
+        });
+      });
+      return true;
+    }
   }
 }
