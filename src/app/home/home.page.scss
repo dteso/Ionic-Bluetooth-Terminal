@@ -32,26 +32,25 @@
   color:white;
   text-align: center;
   padding: 0.5rem;
-  background-color: lightseagreen;
+  background-color: rgb(3, 4, 36);
   padding-bottom: 1rem;
 }
 
 .bg-seagreen{
-  background-color: lightseagreen;
-  background: lightseagreen;
+  background-color: rgb(3, 4, 36);
+  background: rgb(3, 4, 36);
 }
 
 .white-shadowed-text{
-  text-shadow: 2px 2px 4px #000000;
+  text-shadow: 2px 2px 4px #05f0a1;
 }
 
 .center-shadow-box{
   text-align: center;
-  box-shadow: 3px 3px 3px rgb(20, 114, 109);
+  box-shadow: 3px 3px 3px rgb(1, 14, 85);
 }
 
 .lbl-h4{
-  color: black;
   background: transparent;
   height: 4rem;
 }
@@ -91,7 +90,7 @@
 }
 
 .terminal-input{
-  background: rgb(51, 207, 199);
+  background: rgb(108, 141, 248);
   border-radius: 2%;
 }
 
@@ -102,3 +101,8 @@
 .text-black{
   color: black;
 }
+
+.text-white{
+  color: whitesmoke;
+}
+

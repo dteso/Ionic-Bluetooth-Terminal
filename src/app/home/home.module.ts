@@ -11,6 +11,7 @@ import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { PdfService } from 'src/services/pdf.service';
 
 @NgModule({
   imports: [
@@ -24,8 +25,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     BluetoothSerial,
     AndroidPermissions,
     SpeechRecognition,
-    File,
-    FileOpener
+    PdfService
   ],
   declarations: [HomePage]
 })
