@@ -176,4 +176,8 @@ Ejecutamos el proceso con
 En este punto deberíamos estar listo para levantar el proyecto en el dispositivo. 
 
 
+> Storage
+
+npm install @ionic/storage-angular
+
 
