@@ -11,9 +11,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import { ModalController } from '@ionic/angular';
 import { Observable, of } from 'rxjs';
 import { LoaderService } from 'src/services/loader.service';
 import { PdfService } from 'src/services/pdf.service';
+import { StorageService } from 'src/services/storage.service';
+import { ModalCommandsComponent } from '../components/modal-commands/modal-commands.component';
 
 
 const READ_STATUS = '>>>READ_STATUS';
@@ -59,6 +62,8 @@ export class HomePage implements OnInit {
     address: '',
   };
 
+  modal;
+
   constructor(
     private readonly bt: BluetoothSerial,
     private readonly androidPermissions: AndroidPermissions,
@@ -66,7 +71,9 @@ export class HomePage implements OnInit {
     private readonly formBuilder: FormBuilder,
     public loaderService: LoaderService,
     private readonly speechRecognition: SpeechRecognition,
-    private readonly pdfService: PdfService
+    private readonly pdfService: PdfService,
+    private readonly modalController: ModalController,
+    private readonly storageService: StorageService
   ) {
     this.idx = 0;
     this.btForm = this.formBuilder.group({
@@ -233,5 +240,24 @@ export class HomePage implements OnInit {
 
   generatePdf(){
     this.pdfService.generatePDF(this.rawData);
+  }
+
+  async presentModal() {
+    this.modal = await this.modalController.create({
+      component: ModalCommandsComponent,
+      cssClass: 'my-custom-class'
+    });
+    this.modal.onDidDismiss().then( res => {
+      console.log(res.data.command);
+      this.idx++;
+      this.rawData.push({
+        id: this.idx,
+        content: res.data.command,
+        type: MessageTypes.SENT,
+        timestamp: new Date(),
+      });
+      this.bt.write(res.data.command);
+    });
+    return await this.modal.present();
   }
 }

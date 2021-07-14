@@ -7,11 +7,10 @@ import { HomePage } from './home.page';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
-import { File } from '@ionic-native/file/ngx';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { PdfService } from 'src/services/pdf.service';
+import { ModalCommandsModule } from '../components/modal-commands/modal-commands.module';
 
 @NgModule({
   imports: [
@@ -19,7 +18,8 @@ import { PdfService } from 'src/services/pdf.service';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalCommandsModule
   ],
   providers: [
     BluetoothSerial,

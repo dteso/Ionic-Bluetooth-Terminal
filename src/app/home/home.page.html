@@ -6,8 +6,8 @@
           BluetoothTerminal
         </ion-title>
       </ion-col>
-      <ion-col size="1" *ngIf="connected" style="margin-right: 0.5rem;">
-        <ion-icon name="settings-outline" color="secondary" style="font-size: 1.75rem;"></ion-icon>
+      <ion-col size="1" style="margin-right: 0.5rem;">
+        <ion-icon name="settings-outline" color="secondary" style="font-size: 1.75rem;" (click)="presentModal()"></ion-icon>
       </ion-col>
       <ion-col size="1" *ngIf="connected" style="margin-right: 0.5rem;" (click)="clearConsole();">
         <ion-icon name="trash" color="warning"  style="font-size: 1.75rem;"></ion-icon>
@@ -83,13 +83,18 @@
   <ion-row *ngIf="rawDataSubject | async else notDataBlock" class="fade-in">
     <ion-col size='12'>
       <div #terminal class="overflow-scroll">
+        <ion-textarea style="color: white;background-color: black;">
+          <div *ngFor="let data of rawDataSubject | async" style="padding: 0.5rem;">
+            <p style="display: inline-flex;">[{{data.timestamp | date : 'HH:mm' }}] {{data.content}}</p>
+          </div>
+        </ion-textarea>
         <ion-textarea>
           <div *ngFor="let data of rawDataSubject | async"
             [ngStyle]="{'background': data.type === 'RECEIVED' ? 'rgb(61, 60, 60)' : (data.type === 'SENT' ? 'orange' : null) }"
-            class="log">
+            class="log fade-in">
             <!-- <h1>{{data.id}}</h1> -->
             <ion-row>
-              <ion-col size='8'>
+              <ion-col>
                 <p *ngIf="data.type === messageTypes.RECEIVED else elseBlock" class="fs3px">{{data.type}}
                   <ion-icon name="arrow-undo-outline" class="fs1rem">
                   </ion-icon>

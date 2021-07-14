@@ -1,0 +1,39 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Commands</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+
+  <ion-button color="tertiary" fill="solid" expand="block" (click)="addCommand()">
+    Add Command
+  </ion-button>
+
+  <ion-list *ngIf="!showCreateForm">
+    <ion-item *ngFor="let command of commands" style="color: black;" (click)="dismissWithCommand(command.message)">
+      {{command.command}}
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="createForm && showCreateForm" style="background-color: black;">
+    <form [formGroup]="createForm" (ngSubmit)="storeCommand()">
+      <ion-row>
+        <ion-col size='12'>
+          <ion-input type="text" formControlName="command" name="command" style="background-color: gray;"></ion-input>
+        </ion-col>
+        <ion-col size='12'>
+          <ion-input type="text" id="msgInput" formControlName="message" name="message" style="background-color: gray;"></ion-input>
+        </ion-col>
+        <ion-col style="text-align: center;">
+          <ion-button color="primary" type="submit" size='medium'>
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
+
+</ion-content>
